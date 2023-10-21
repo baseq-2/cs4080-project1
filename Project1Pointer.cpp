@@ -60,16 +60,14 @@ Matrix getMatrixFromUserInput()
     // read matrix values using pointer arithmetic
     for (int i = 0; i < rows; i++)
     {
-        char line[1000];
-        fgets(line, 1000, file);
+        getline (f, line);
 
         // split line into tokens
-        char *token = strtok(line, ",");
+        stringstream s (line);
         int j = 0;
-        while (token != NULL)
+        while (getline (s, val, ','))
         {
-            *(*(matrix + i) + j) = atof(token);
-            token = strtok(NULL, ",");
+            *(*(matrix + i) + j) = atof(val);
             j++;
         }
     }
