@@ -42,6 +42,7 @@ public class Project1 {
         Matrix m2 = new Matrix(matrix2);
 
         boolean exit = false;
+        LocalTime start, end;
         while (!exit) {
             System.out.println("\nSelect an operation:");
             System.out.println("1. Addition");
@@ -52,31 +53,39 @@ public class Project1 {
 
             int choice = scanner.nextInt();
             Matrix result;
-            LocalTime start = LocalTime.now();
             switch (choice) {
                 case 1:
+                	start = LocalTime.now();
                     result = m1.add(m2);
+                    end = LocalTime.now();
                     if (result == null) {
                         break;
                     }
                     System.out.println("Result:");
                     System.out.println(result);
+                    System.out.println("Duration: "+Duration.between(start, end).getNano()+"ns");
                     break;
                 case 2:
+                    start = LocalTime.now();
                     result = m1.subtract(m2);
+                    end = LocalTime.now();
                     if (result == null) {
                         break;
                     }
                     System.out.println("Result:");
                     System.out.println(result);
+                    System.out.println("Duration: "+Duration.between(start, end).getNano()+"ns");
                     break;
                 case 3:
+                	start = LocalTime.now();
                     result = m1.multiply(m2);
+                    end = LocalTime.now();
                     if (result == null) {
                         break;
                     }
                     System.out.println("Result:");
                     System.out.println(result);
+                    System.out.println("Duration: "+Duration.between(start, end).getNano()+"ns");
                     break;
                 case 4:
                     matrix1 = getMatrixFromUserInput();
@@ -91,8 +100,6 @@ public class Project1 {
                 default:
                     System.out.println("Invalid choice.");
             }
-            LocalTime end = LocalTime.now();
-            System.out.println("Duration: "+Duration.between(start, end).getNano()+"ns");
         }
     }
 
