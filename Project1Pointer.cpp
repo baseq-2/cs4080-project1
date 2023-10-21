@@ -1,8 +1,7 @@
-#pragma once
 #include <string>
 #include <iostream>
 #include <chrono>
-using namespace std::chrono;
+using namespace std;
 class Matrix {       
   public:             
     int rows;
