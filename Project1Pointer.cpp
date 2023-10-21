@@ -30,7 +30,7 @@ Matrix getMatrixFromUserInput()
     if (!f.is_open())
     {
         std::cerr << "Error: file open failed '" << filename << "'.\n";
-        return 1;
+        return null;
     }
 
     // read matrix dimensions
@@ -38,7 +38,7 @@ Matrix getMatrixFromUserInput()
     
     // split line into tokens
     string line, val;
-    getline (f, line)
+    getline (f, line);
     stringstream s (line);
     getline (s, val, ',');
     rows = stoi (val);
