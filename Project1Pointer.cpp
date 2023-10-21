@@ -1,18 +1,21 @@
 #include <string>
 #include <iostream>
+#include <fstream>
+#include <sstream>
 #include <chrono>
 using namespace std;
-class Matrix {       
-  public:             
+class Matrix
+{
+public:
     int rows;
-    int cols;        
+    int cols;
     float **matrix;
-    Matrix operator+(Matrix const& obj) 
-    { 
-        Matrix res; 
+    Matrix operator+(Matrix const &obj)
+    {
+        Matrix res;
         res = obj;
-        return res; 
-    } 
+        return res;
+    }
 };
 
 // create matrix from file
@@ -22,24 +25,25 @@ Matrix getMatrixFromUserInput()
     cout << "Enter the file name: ";
     cin >> filename;
 
-    FILE *file = fopen(filename, "r");
-    if (file == NULL)
+    ifstream f;
+    f.open(filename);
+    if (!f.is_open())
     {
-        printf("Error opening file\n");
-        exit(1);
+        std::cerr << "Error: file open failed '" << filename << "'.\n";
+        return 1;
     }
 
     // read matrix dimensions
     int rows, cols;
-
-    char line[1000];
-    fgets(line, 1000, file);
-
+    
     // split line into tokens
-    char *token = strtok(line, ",");
-    rows = atoi(token);
-    token = strtok(NULL, ",");
-    cols = atoi(token);
+    string line, val;
+    getline (f, line)
+    stringstream s (line);
+    getline (s, val, ',');
+    rows = stoi (val);
+    getline (s, val, ',');
+    cols = val;
 
     Matrix m;
     m.rows = rows;
