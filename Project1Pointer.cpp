@@ -30,7 +30,7 @@ Matrix getMatrixFromUserInput()
     if (!f.is_open())
     {
         std::cerr << "Error: file open failed '" << filename << "'.\n";
-        return null;
+        return NULL;
     }
 
     // read matrix dimensions
