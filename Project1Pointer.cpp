@@ -43,7 +43,7 @@ Matrix getMatrixFromUserInput()
     getline (s, val, ',');
     rows = stoi (val);
     getline (s, val, ',');
-    cols = val;
+    cols = stoi (val);
 
     Matrix m;
     m.rows = rows;
@@ -51,10 +51,10 @@ Matrix getMatrixFromUserInput()
 
     // create matrix from dimensions
     float **matrix;
-    matrix = (float **)malloc(dim->rows * sizeof(float *));
-    for (int i = 0; i < dim->rows; i++)
+    matrix = (float **)malloc(m.rows * sizeof(float *));
+    for (int i = 0; i < m.rows; i++)
     {
-        *(matrix + i) = (float *)malloc(dim->cols * sizeof(float));
+        *(matrix + i) = (float *)malloc(m.cols * sizeof(float));
     }
 
     // read matrix values using pointer arithmetic
