@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/time.h>
+#include <time.h>
 
 // create matrix from file
 void getMatrixFromUserInput(float matrix[100][100])
