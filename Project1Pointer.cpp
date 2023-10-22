@@ -12,10 +12,31 @@ public:
     int rows;
     int cols;
     float **matrix;
+
+    Matrix() : rows(0), cols(0), matrix(nullptr);
+    Matrix(rows, cols) : rows(rows), cols(cols), matrix(nullptr);
+
     Matrix operator+(Matrix const &obj)
     {
-        Matrix res;
-        res = obj;
+        if (rows != obj.rows || cols != obj.cols) {
+            return new Matrix();
+        }
+        Matrix res = new Matrix(rows, cols);
+        float **result;
+        result = (float **)malloc(rows * sizeof(float *));
+        for (int i = 0; i < rows; i++)
+        {
+            *(result + i) = (float *)malloc(cols * sizeof(float));
+        }
+        for (int i = 0; i < rows; i++) {
+            float *row1 = *(matrix+i);
+            float *row2 = *(obj.matrix+i);
+            float *rowResult = *(result+i);
+            for (int j = 0; j < cols; j++) {
+                *(rowResult+j) = *(row1+j) + *(row2+j);
+            }
+        }
+        res.matrix = result;
         return res;
     }
 };
