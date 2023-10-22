@@ -32,20 +32,20 @@ Matrix getMatrixFromUserInput()
     if (!f.is_open())
     {
         std::cerr << "Error: file open failed '" << filename << "'.\n";
-        return NULL;
+        exit(1);
     }
 
     // read matrix dimensions
     int rows, cols;
-    
+
     // split line into tokens
     string line, val;
-    getline (f, line);
-    stringstream s (line);
-    getline (s, val, ',');
-    rows = stoi (val);
-    getline (s, val, ',');
-    cols = stoi (val);
+    getline(f, line);
+    stringstream s(line);
+    getline(s, val, ',');
+    rows = stoi(val);
+    getline(s, val, ',');
+    cols = stoi(val);
 
     Matrix m;
     m.rows = rows;
@@ -62,19 +62,19 @@ Matrix getMatrixFromUserInput()
     // read matrix values using pointer arithmetic
     for (int i = 0; i < rows; i++)
     {
-        getline (f, line);
+        getline(f, line);
 
         // split line into tokens
-        stringstream s (line);
+        stringstream s(line);
         int j = 0;
-        while (getline (s, val, ','))
+        while (getline(s, val, ','))
         {
-            *(*(matrix + i) + j) = atof(val);
+            *(*(matrix + i) + j) = stof(val);
             j++;
         }
     }
 
-    fclose(file);
+    f.close();
     m.matrix = matrix;
     return m;
 }
@@ -107,8 +107,6 @@ int main()
 
     Matrix result;
     int exit = 0;
-    struct timespec start, end;
-    long long duration;
 
     while (exit == 0)
     {
@@ -124,32 +122,64 @@ int main()
         switch (choice)
         {
         case 1:
+        {
             // calculate time to complete
-            auto start = high_resolution_clock::now();
+            auto start = chrono::high_resolution_clock::now();
             result = matrix1 + matrix2;
-            auto stop = high_resolution_clock::now();
-            if (result == NULL)
+            auto stop = chrono::high_resolution_clock::now();
+            if (result.matrix == NULL)
             {
                 break;
             }
             printMatrix(result);
-            duration = duration_cast<nanoseconds>(stop - start);
+            auto duration = chrono::duration_cast<chrono::nanoseconds>(stop - start);
             printf("Duration: %lldns\n", duration.count());
             break;
+        }
         case 2:
+        {
+            auto start = chrono::high_resolution_clock::now();
+            result = matrix1 - matrix2;
+            auto stop = chrono::high_resolution_clock::now();
+            if (result.matrix == NULL)
+            {
+                break;
+            }
+            printMatrix(result);
+            auto duration = chrono::duration_cast<chrono::nanoseconds>(stop - start);
+            printf("Duration: %lldns\n", duration.count());
             break;
+        }
         case 3:
+        {
+            auto start = chrono::high_resolution_clock::now();
+            result = matrix1 * matrix2;
+            auto stop = chrono::high_resolution_clock::now();
+            if (result.matrix == NULL)
+            {
+                break;
+            }
+            printMatrix(result);
+            auto duration = chrono::duration_cast<chrono::nanoseconds>(stop - start);
+            printf("Duration: %lldns\n", duration.count());
             break;
+        }
         case 4:
+        {
             matrix1 = getMatrixFromUserInput();
             matrix2 = getMatrixFromUserInput();
             break;
+        }
         case 5:
+        {
             exit = 1;
             break;
+        }
         default:
+        {
             printf("Invalid choice\n");
             break;
+        }
         }
     }
     return 0;
