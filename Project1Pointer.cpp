@@ -219,30 +219,30 @@ int main()
         }
         case 2:
         {
-            // auto start = chrono::high_resolution_clock::now();
-            // result = matrix1 - matrix2;
-            // auto stop = chrono::high_resolution_clock::now();
-            // if (result.matrix == NULL)
-            // {
-            //     break;
-            // }
-            // printMatrix(result);
-            // auto duration = chrono::duration_cast<chrono::nanoseconds>(stop - start);
-            // printf("Duration: %lldns\n", duration.count());
+            auto start = chrono::high_resolution_clock::now();
+            result = matrix1 - matrix2;
+            auto stop = chrono::high_resolution_clock::now();
+            if (result.matrix == NULL)
+            {
+                break;
+            }
+            printMatrix(result);
+            auto duration = chrono::duration_cast<chrono::nanoseconds>(stop - start);
+            cout << "Duration: " << duration.count() << "ns" << endl;
             break;
         }
         case 3:
         {
-            // auto start = chrono::high_resolution_clock::now();
-            // result = matrix1 * matrix2;
-            // auto stop = chrono::high_resolution_clock::now();
-            // if (result.matrix == NULL)
-            // {
-            //     break;
-            // }
-            // printMatrix(result);
-            // auto duration = chrono::duration_cast<chrono::nanoseconds>(stop - start);
-            // printf("Duration: %lldns\n", duration.count());
+            auto start = chrono::high_resolution_clock::now();
+            result = matrix1 * matrix2;
+            auto stop = chrono::high_resolution_clock::now();
+            if (result.matrix == NULL)
+            {
+                break;
+            }
+            printMatrix(result);
+            auto duration = chrono::duration_cast<chrono::nanoseconds>(stop - start);
+            cout << "Duration: " << duration.count() << "ns" << endl;
             break;
         }
         case 4:
