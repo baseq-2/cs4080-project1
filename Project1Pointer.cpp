@@ -16,33 +16,33 @@ public:
     Matrix() : rows(0), cols(0), matrix(nullptr) {}
     Matrix(int rows, int cols) : rows(rows), cols(cols), matrix(nullptr) {}
 
-    Matrix &operator+(Matrix const &obj)
+    Matrix operator+(Matrix const &obj)
     {
         if (rows != obj.rows || cols != obj.cols)
         {
             return NULL;
         }
-        Matrix res;
-        res.rows = rows;
-        res.cols = cols;
+        Matrix *res = new Matrix(0,0);
+        res->rows = rows;
+        res->cols = cols;
         float **result;
         result = (float **)malloc(rows * sizeof(float *));
-        for (int i = 0; i < rows; i++)
+        for (int i = 0; i < res->rows; i++)
         {
-            *(result + i) = (float *)malloc(cols * sizeof(float));
+            *(result + i) = (float *)malloc(res->cols * sizeof(float));
         }
-        for (int i = 0; i < rows; i++)
+        for (int i = 0; i < res->rows; i++)
         {
             float *row1 = *(matrix + i);
             float *row2 = *(obj.matrix + i);
             float *rowResult = *(result + i);
-            for (int j = 0; j < cols; j++)
+            for (int j = 0; j < res->cols; j++)
             {
                 *(rowResult + j) = *(row1 + j) + *(row2 + j);
             }
         }
-        res.matrix = result;
-        return res;
+        res->matrix = result;
+        return *res;
     }
 };
 
