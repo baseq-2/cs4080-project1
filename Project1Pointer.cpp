@@ -169,7 +169,7 @@ void printMatrix(Matrix m)
         for (int j = 0; j < m.cols; j++)
         {
             printf("%.2f", *(*(m.matrix + i) + j));
-            if (j != 99)
+            if (j < m.cols-1)
             {
                 printf(", ");
             }

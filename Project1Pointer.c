@@ -168,7 +168,7 @@ void printMatrix(float **matrix, int rows, int cols)
         for (int j = 0; j < cols; j++)
         {
             printf("%.2f", *(*(matrix + i) + j));
-            if (j != 99)
+            if (j < cols-1)
             {
                 printf(", ");
             }
