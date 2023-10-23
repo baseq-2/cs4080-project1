@@ -20,9 +20,11 @@ public:
     {
         if (rows != obj.rows || cols != obj.cols)
         {
-            return Matrix();
+            return NULL;
         }
-        Matrix res(rows, cols);
+        Matrix res;
+        res.rows = rows;
+        res.cols = cols;
         float **result;
         result = (float **)malloc(rows * sizeof(float *));
         for (int i = 0; i < rows; i++)
