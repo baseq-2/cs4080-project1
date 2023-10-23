@@ -16,7 +16,7 @@ public:
     Matrix() : rows(0), cols(0), matrix(nullptr) {}
     Matrix(int rows, int cols) : rows(rows), cols(cols), matrix(nullptr) {}
 
-    Matrix operator+(Matrix const &obj)
+    Matrix &operator+(Matrix const &obj)
     {
         if (rows != obj.rows || cols != obj.cols)
         {
