@@ -79,7 +79,7 @@ public:
             return *res;
         }
         res->rows = rows;
-        res->cols = cols;
+        res->cols = obj.cols;
         float **result;
         result = (float **)malloc(res->rows * sizeof(float *));
         for (int i = 0; i < res->rows; i++)
@@ -88,12 +88,16 @@ public:
         }
         for (int i = 0; i < res->rows; i++)
         {
-            float *row1 = *(matrix + i);
-            float *row2 = *(obj.matrix + i);
+            float *row1 = *(matrix1 + i);
             float *rowResult = *(result + i);
             for (int j = 0; j < res->cols; j++)
             {
-                *(rowResult + j) = (*(row1 + j)) * (*(row2 + j));
+                float sum = 0;
+                for (int k = 0; k < cols; k++)
+                {
+                    sum += *(row1 + k) * *(*(matrix2 + k) + j);
+                }
+                *(rowResult + j) = sum;
             }
         }
         res->matrix = result;
@@ -105,7 +109,7 @@ public:
 Matrix getMatrixFromUserInput()
 {
     string filename;
-    cout << "Enter the file name: ";
+    cout << "Enter the filename: ";
     cin >> filename;
 
     ifstream f;
@@ -169,7 +173,7 @@ void printMatrix(Matrix m)
         for (int j = 0; j < m.cols; j++)
         {
             printf("%.2f", *(*(m.matrix + i) + j));
-            if (j < m.cols-1)
+            if (j < m.cols - 1)
             {
                 printf(", ");
             }
