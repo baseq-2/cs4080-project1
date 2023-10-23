@@ -93,7 +93,7 @@ public:
             float *rowResult = *(result + i);
             for (int j = 0; j < res->cols; j++)
             {
-                *(rowResult + j) = *(row1 + j) * *(row2 + j);
+                *(rowResult + j) = (*(row1 + j)) * (*(row2 + j));
             }
         }
         res->matrix = result;
