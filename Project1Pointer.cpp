@@ -88,14 +88,14 @@ public:
         }
         for (int i = 0; i < res->rows; i++)
         {
-            float *row1 = *(matrix1 + i);
+            float *row1 = *(matrix + i);
             float *rowResult = *(result + i);
             for (int j = 0; j < res->cols; j++)
             {
                 float sum = 0;
                 for (int k = 0; k < cols; k++)
                 {
-                    sum += *(row1 + k) * *(*(matrix2 + k) + j);
+                    sum += *(row1 + k) * *(*(obj.matrix + k) + j);
                 }
                 *(rowResult + j) = sum;
             }
