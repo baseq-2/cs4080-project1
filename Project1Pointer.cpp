@@ -158,7 +158,7 @@ int main()
             }
             printMatrix(result);
             auto duration = chrono::duration_cast<chrono::nanoseconds>(stop - start);
-            printf("Duration: %lldns\n", duration.count());
+            cout << "Duration: " << duration.count() << "ns" << endl;
             break;
         }
         case 2:
