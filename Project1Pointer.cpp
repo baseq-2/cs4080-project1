@@ -25,7 +25,7 @@ public:
         res->rows = rows;
         res->cols = cols;
         float **result;
-        result = (float **)malloc(rows * sizeof(float *));
+        result = (float **)malloc(res->rows * sizeof(float *));
         for (int i = 0; i < res->rows; i++)
         {
             *(result + i) = (float *)malloc(res->cols * sizeof(float));
@@ -38,6 +38,62 @@ public:
             for (int j = 0; j < res->cols; j++)
             {
                 *(rowResult + j) = *(row1 + j) + *(row2 + j);
+            }
+        }
+        res->matrix = result;
+        return *res;
+    }
+    Matrix operator-(Matrix const &obj)
+    {
+        Matrix *res = new Matrix();
+        if (rows != obj.rows || cols != obj.cols)
+        {
+            return *res;
+        }
+        res->rows = rows;
+        res->cols = cols;
+        float **result;
+        result = (float **)malloc(res->rows * sizeof(float *));
+        for (int i = 0; i < res->rows; i++)
+        {
+            *(result + i) = (float *)malloc(res->cols * sizeof(float));
+        }
+        for (int i = 0; i < res->rows; i++)
+        {
+            float *row1 = *(matrix + i);
+            float *row2 = *(obj.matrix + i);
+            float *rowResult = *(result + i);
+            for (int j = 0; j < res->cols; j++)
+            {
+                *(rowResult + j) = *(row1 + j) - *(row2 + j);
+            }
+        }
+        res->matrix = result;
+        return *res;
+    }
+    Matrix operator*(Matrix const &obj)
+    {
+        Matrix *res = new Matrix();
+        if (rows != obj.cols || cols != obj.rows)
+        {
+            return *res;
+        }
+        res->rows = rows;
+        res->cols = cols;
+        float **result;
+        result = (float **)malloc(res->rows * sizeof(float *));
+        for (int i = 0; i < res->rows; i++)
+        {
+            *(result + i) = (float *)malloc(res->cols * sizeof(float));
+        }
+        for (int i = 0; i < res->rows; i++)
+        {
+            float *row1 = *(matrix + i);
+            float *row2 = *(obj.matrix + i);
+            float *rowResult = *(result + i);
+            for (int j = 0; j < res->cols; j++)
+            {
+                *(rowResult + j) = *(row1 + j) * *(row2 + j);
             }
         }
         res->matrix = result;
