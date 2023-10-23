@@ -14,15 +14,14 @@ public:
     float **matrix;
 
     Matrix() : rows(0), cols(0), matrix(nullptr) {}
-    Matrix(int rows, int cols) : rows(rows), cols(cols), matrix(nullptr) {}
 
     Matrix operator+(Matrix const &obj)
     {
         if (rows != obj.rows || cols != obj.cols)
         {
-            return NULL;
+            return new Matrix();
         }
-        Matrix *res = new Matrix(0,0);
+        Matrix *res = new Matrix();
         res->rows = rows;
         res->cols = cols;
         float **result;
