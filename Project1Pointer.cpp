@@ -17,11 +17,11 @@ public:
 
     Matrix operator+(Matrix const &obj)
     {
+        Matrix *res = new Matrix();
         if (rows != obj.rows || cols != obj.cols)
         {
-            return new Matrix();
+            return *res;
         }
-        Matrix *res = new Matrix();
         res->rows = rows;
         res->cols = cols;
         float **result;
