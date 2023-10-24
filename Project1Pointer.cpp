@@ -15,6 +15,15 @@ public:
 
     Matrix() : rows(0), cols(0), matrix(nullptr) {}
 
+    ~Matrix()
+    {
+        for (int i = 0; i < rows; i++)
+        {
+            free(*(matrix + i));
+        }
+        free(matrix);
+    }
+
     Matrix operator+(Matrix const &obj)
     {
         Matrix *res = new Matrix();

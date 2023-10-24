@@ -68,7 +68,7 @@ float **getMatrixFromUserInput(struct Dimension *dim)
 }
 
 // add two matrices using pointer arithmetic
-float** addMatrices(float **matrix1, float **matrix2, struct Dimension *dim, int rows1, int cols1, int rows2, int cols2)
+float **addMatrices(float **matrix1, float **matrix2, struct Dimension *dim, int rows1, int cols1, int rows2, int cols2)
 {
     // check if dimensions are valid
     if (rows1 != rows2 || cols1 != cols2)
@@ -86,19 +86,21 @@ float** addMatrices(float **matrix1, float **matrix2, struct Dimension *dim, int
         *(result + i) = (float *)malloc(dim->cols * sizeof(float));
     }
 
-    for (int i = 0; i < dim->rows; i++) {
-        float *row1 = *(matrix1+i);
-        float *row2 = *(matrix2+i);
-        float *rowResult = *(result+i);
-        for (int j = 0; j < dim->cols; j++) {
-            *(rowResult+j) = *(row1+j) + *(row2+j);
+    for (int i = 0; i < dim->rows; i++)
+    {
+        float *row1 = *(matrix1 + i);
+        float *row2 = *(matrix2 + i);
+        float *rowResult = *(result + i);
+        for (int j = 0; j < dim->cols; j++)
+        {
+            *(rowResult + j) = *(row1 + j) + *(row2 + j);
         }
     }
     return result;
 }
 
 // subtract two matrices using pointer arithmetic
-float** subtractMatrices(float **matrix1, float **matrix2, struct Dimension *dim, int rows1, int cols1, int rows2, int cols2)
+float **subtractMatrices(float **matrix1, float **matrix2, struct Dimension *dim, int rows1, int cols1, int rows2, int cols2)
 {
     // check if dimensions are valid
     if (rows1 != rows2 || cols1 != cols2)
@@ -116,19 +118,21 @@ float** subtractMatrices(float **matrix1, float **matrix2, struct Dimension *dim
         *(result + i) = (float *)malloc(dim->cols * sizeof(float));
     }
 
-    for (int i = 0; i < dim->rows; i++) {
-        float *row1 = *(matrix1+i);
-        float *row2 = *(matrix2+i);
-        float *rowResult = *(result+i);
-        for (int j = 0; j < dim->cols; j++) {
-            *(rowResult+j) = *(row1+j) - *(row2+j);
+    for (int i = 0; i < dim->rows; i++)
+    {
+        float *row1 = *(matrix1 + i);
+        float *row2 = *(matrix2 + i);
+        float *rowResult = *(result + i);
+        for (int j = 0; j < dim->cols; j++)
+        {
+            *(rowResult + j) = *(row1 + j) - *(row2 + j);
         }
     }
     return result;
 }
 
 // multiply two matrices using pointer arithmetic
-float** multiplyMatrices(float **matrix1, float **matrix2, struct Dimension *dim, int rows1, int cols1, int rows2, int cols2)
+float **multiplyMatrices(float **matrix1, float **matrix2, struct Dimension *dim, int rows1, int cols1, int rows2, int cols2)
 {
     if (cols1 != rows2)
     {
@@ -145,15 +149,18 @@ float** multiplyMatrices(float **matrix1, float **matrix2, struct Dimension *dim
         *(result + i) = (float *)malloc(dim->cols * sizeof(float));
     }
 
-    for (int i = 0; i < dim->rows; i++) {
-        float *row1 = *(matrix1+i);
-        float *rowResult = *(result+i);
-        for (int j = 0; j < dim->cols; j++) {
+    for (int i = 0; i < dim->rows; i++)
+    {
+        float *row1 = *(matrix1 + i);
+        float *rowResult = *(result + i);
+        for (int j = 0; j < dim->cols; j++)
+        {
             float sum = 0;
-            for (int k = 0; k < cols1; k++) {
-                sum += *(row1+k) * *(*(matrix2+k)+j);
+            for (int k = 0; k < cols1; k++)
+            {
+                sum += *(row1 + k) * *(*(matrix2 + k) + j);
             }
-            *(rowResult+j) = sum;
+            *(rowResult + j) = sum;
         }
     }
     return result;
@@ -168,7 +175,7 @@ void printMatrix(float **matrix, int rows, int cols)
         for (int j = 0; j < cols; j++)
         {
             printf("%.2f", *(*(matrix + i) + j));
-            if (j < cols-1)
+            if (j < cols - 1)
             {
                 printf(", ");
             }
@@ -216,7 +223,6 @@ int main()
                 break;
             }
             printMatrix(result, dim3.rows, dim3.cols);
-            free(result);
             duration = (end.tv_sec - start.tv_sec) * 1000000000 + (end.tv_nsec - start.tv_nsec);
             printf("Duration: %lldns\n", duration);
             break;
@@ -229,7 +235,6 @@ int main()
                 break;
             }
             printMatrix(result, dim3.rows, dim3.cols);
-            free(result);
             break;
         case 3:
             clock_gettime(CLOCK_REALTIME, &start);
@@ -240,11 +245,18 @@ int main()
                 break;
             }
             printMatrix(result, dim3.rows, dim3.cols);
-            free(result);
             duration = (end.tv_sec - start.tv_sec) * 1000000000 + (end.tv_nsec - start.tv_nsec);
             printf("Duration: %lldns\n", duration);
             break;
         case 4:
+            for (int i = 0; i < dim1.rows; i++)
+            {
+                free(*(matrix1 + i));
+            }
+            for (int i = 0; i < dim2.rows; i++)
+            {
+                free(*(matrix2 + i));
+            }
             free(matrix1);
             free(matrix2);
             matrix1 = getMatrixFromUserInput(&dim1);
@@ -257,8 +269,26 @@ int main()
             printf("Invalid choice\n");
             break;
         }
+        for (int i = 0; i < dim3.rows; i++)
+        {
+            free(*(result + i));
+        }
+        free(result);
+    }
+    for (int i = 0; i < dim1.rows; i++)
+    {
+        free(*(matrix1 + i));
+    }
+    for (int i = 0; i < dim2.rows; i++)
+    {
+        free(*(matrix2 + i));
     }
     free(matrix1);
     free(matrix2);
+    for (int i = 0; i < dim3.rows; i++)
+    {
+        free(*(result + i));
+    }
+    free(result);
     return 0;
 }

@@ -196,6 +196,14 @@ int main()
             break;
         }
     }
-
+    for (int i = 0; i < 100; i++)
+    {
+        free(matrix1[i]);
+        free(matrix2[i]);
+        free(result[i]);
+    }
+    free(matrix1);
+    free(matrix2);
+    free(result);
     return 0;
 }
